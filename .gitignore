@@ -1,0 +1,8 @@
+# folders
+bin/
+build/
+.idea/
+cmake-*/
+
+# files
+.DS_Store

@@ -1,0 +1,8 @@
+[submodule "deps/glfw"]
+	path = deps/glfw
+	url = https://github.com/4iwen/glfw
+	branch = latest
+[submodule "deps/glad"]
+	path = deps/glad
+	url = https://github.com/4iwen/glad-gl-3.3-core
+	branch = master
