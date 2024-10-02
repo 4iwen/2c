@@ -79,8 +79,8 @@ bool twoc_create_renderer() {
     quad_index_buffer = twoc_create_index_buffer(quad_indices, sizeof(quad_indices));
 
     twoc_vertex_buffer_layout_t *quad_vertex_buffer_layout = twoc_create_vertex_buffer_layout();
-    twoc_push_vertex_buffer_element(quad_vertex_buffer_layout, TWOC_FLOAT3, "a_pos");
-    twoc_push_vertex_buffer_element(quad_vertex_buffer_layout, TWOC_FLOAT3, "a_color");
+    twoc_push_vertex_buffer_element(quad_vertex_buffer_layout, TWOC_FLOAT3, "a_pos", false);
+    twoc_push_vertex_buffer_element(quad_vertex_buffer_layout, TWOC_FLOAT3, "a_color", false);
     twoc_set_vertex_buffer_layout(quad_vertex_buffer, quad_vertex_buffer_layout);
 
     twoc_add_vertex_buffer_to_vertex_array(quad_vertex_array, quad_vertex_buffer);

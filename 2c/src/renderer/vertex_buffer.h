@@ -12,10 +12,10 @@ typedef enum {
     TWOC_INT,
     TWOC_BOOL,
     TWOC_MAT4
-} twoc_vertex_buffer_element_type_t;
+} twoc_vertex_buffer_element_data_type_t;
 
 typedef struct {
-    twoc_vertex_buffer_element_type_t data_type;
+    twoc_vertex_buffer_element_data_type_t data_type;
     const char *name;
     bool normalized;
     unsigned long offset;
@@ -35,7 +35,10 @@ TWOC_API twoc_vertex_buffer_layout_t *twoc_create_vertex_buffer_layout();
 TWOC_API void twoc_destroy_vertex_buffer_layout(twoc_vertex_buffer_layout_t *layout);
 
 TWOC_API void twoc_push_vertex_buffer_element(
-    twoc_vertex_buffer_layout_t *layout, twoc_vertex_buffer_element_type_t element_type, const char *name
+    twoc_vertex_buffer_layout_t *layout,
+    twoc_vertex_buffer_element_data_type_t element_type,
+    const char *name,
+    bool normalized
 );
 
 typedef struct {

@@ -6,7 +6,7 @@
 #include <core/assert.h>
 #include <glad/gl.h>
 
-GLenum element_type_to_opengl_type(twoc_vertex_buffer_element_type_t type) {
+GLenum element_type_to_opengl_type(twoc_vertex_buffer_element_data_type_t type) {
     switch (type) {
         default:
         case TWOC_NONE:

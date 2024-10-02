@@ -14,11 +14,12 @@
 
 #include <stdio.h>
 
-#define TWOC_ASSERT(condition, message, ...) \
+#define TWOC_ASSERT(condition, message, ...) { \
     if (!(condition)) { \
-        fprintf(stderr, "Assertion failed: " message "\n", ##__VA_ARGS__); \
+        fprintf(stderr, "[%s:%d] Assertion failed: " message "\n",  __FILE__, __LINE__, ##__VA_ARGS__); \
         TWOC_DEBUG_BREAK(); \
-    }
+    } \
+}
 #else
 #define TWOC_ASSERT(condition, message)
 #endif

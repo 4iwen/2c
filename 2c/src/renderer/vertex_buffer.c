@@ -7,9 +7,32 @@
 
 #include "misc.h"
 
+unsigned int get_shader_data_type_size(twoc_vertex_buffer_element_data_type_t data_type) {
+    switch (data_type) {
+        default:
+            TWOC_ASSERT(false, "unknown data type");
+        case TWOC_NONE:
+            return 0;
+        case TWOC_BOOL:
+            return 1;
+        case TWOC_FLOAT:
+        case TWOC_INT:
+            return 4;
+        case TWOC_FLOAT2:
+            return 4 * 2;
+        case TWOC_FLOAT3:
+            return 4 * 3;
+        case TWOC_FLOAT4:
+            return 4 * 4;
+        case TWOC_MAT4:
+            return 4 * 4 * 4;
+    }
+}
+
 unsigned int twoc_get_element_component_count(twoc_vertex_buffer_element_t *element) {
     switch (element->data_type) {
         default:
+            TWOC_ASSERT(false, "unknown data type");
         case TWOC_NONE:
             return 0;
         case TWOC_FLOAT:
@@ -42,24 +65,21 @@ void twoc_destroy_vertex_buffer_layout(twoc_vertex_buffer_layout_t *layout) {
 }
 
 void twoc_push_vertex_buffer_element(
-    twoc_vertex_buffer_layout_t *layout, twoc_vertex_buffer_element_type_t element_type, const char *name
+    twoc_vertex_buffer_layout_t *layout,
+    twoc_vertex_buffer_element_data_type_t data_type,
+    const char *name,
+    bool normalized
 ) {
-    twoc_vertex_buffer_element_t *element = realloc(
+    /*twoc_vertex_buffer_element_t *element = realloc(
         layout->elements,
         sizeof(twoc_vertex_buffer_element_t) * (layout->element_count + 1)
     );
 
-    unsigned int offset = 0;
-    layout->stride = 0;
+    static unsigned int offset = 0;
 
-
-    for (unsigned int i = 0; i < layout->element_count; i++) {
-        twoc_vertex_buffer_element_t element = layout->elements[i];
-
-        element.offset = offset;
-        offset += element.size;
-        layout->stride += element.size;
-    }
+    element[layout->element_count].offset = offset;
+    offset += element[layout->element_count].size;
+    layout->stride += element[layout->element_count].size;
 
     element[layout->element_count].offset = layout->element_count;
     element[layout->element_count].size = 0;
@@ -68,6 +88,42 @@ void twoc_push_vertex_buffer_element(
     element[layout->element_count].name = name;
 
     layout->elements = element;
+    layout->element_count++;
+
+    BufferLayout(std::initializer_list<BufferElement> elements): m_elements(elements) {
+        calculateOffsetsAndStride();
+    }
+
+    void calculateOffsetsAndStride() {
+        uint32_t offset = 0;
+        m_stride = 0;
+        for (auto &element: m_elements) {
+            element.offset = offset;
+            offset += element.size;
+            m_stride += element.size;
+        }
+    }
+    */
+
+    twoc_vertex_buffer_element_t *first_element = realloc(
+        layout->elements,
+        sizeof(twoc_vertex_buffer_element_t) * (layout->element_count + 1)
+    );
+
+    first_element[layout->element_count].offset = layout->element_count;
+    first_element[layout->element_count].size = get_shader_data_type_size(data_type);
+    first_element[layout->element_count].data_type = data_type;
+    first_element[layout->element_count].normalized = normalized;
+    first_element[layout->element_count].name = name;
+
+    layout->elements = first_element;
+
+    static unsigned int offset = 0;
+
+    first_element[layout->element_count].offset = offset;
+    offset += first_element[layout->element_count].size;
+    layout->stride += first_element[layout->element_count].size;
+
     layout->element_count++;
 }
 

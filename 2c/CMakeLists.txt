@@ -18,8 +18,8 @@ if (TWOC_BUILD_SHARED)
     message(STATUS "building 2c as shared library")
     add_library(2c SHARED ${SOURCE_FILES})
 else ()
-    add_library(2c STATIC ${SOURCE_FILES})
     message(STATUS "building 2c as static library")
+    add_library(2c STATIC ${SOURCE_FILES})
 endif ()
 # ==================================
 

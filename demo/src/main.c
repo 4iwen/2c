@@ -16,7 +16,7 @@ int main() {
         double blue = (sin(time * 0.5 + 4.0) + 1.0) / 2.0;
 
         twoc_begin_drawing(); {
-            // twoc_clear_background(TWOC_RGB_F(red, green, blue));
+            twoc_clear_background(TWOC_RGB_F(red, green, blue));
 
             // twoc_draw_rectangle(100, 100, 200, 200, TWOC_RGB(255, 0, 0));
             //

@@ -9,8 +9,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 # ==================================
 
 # ============ options =============
-option(TWOC_BUILD_SHARED "build the shared library" ON)
-option(TWOC_BUILD_DEMO "build the demo" ON)
+option(TWOC_BUILD_SHARED "build as shared library" ON)
+option(TWOC_BUILD_DEMO "build demo" ON)
 # ==================================
 
 # ========== dependencies ==========
