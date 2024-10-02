@@ -2,13 +2,24 @@
 set(
         SOURCE_FILES
 
-        src/core/window.c
+        src/core/core.c
+        src/core/thread.c
+        src/core/mutex.c
+        src/window/window.c
+        src/timer/timer.c
+        src/renderer/renderer.c
+        src/renderer/vertex_array.c
+        src/renderer/vertex_buffer.c
+        src/renderer/index_buffer.c
+        src/renderer/shader.c
 )
 
 if (TWOC_BUILD_SHARED)
+    message(STATUS "building 2c as shared library")
     add_library(2c SHARED ${SOURCE_FILES})
 else ()
     add_library(2c STATIC ${SOURCE_FILES})
+    message(STATUS "building 2c as static library")
 endif ()
 # ==================================
 
@@ -65,7 +76,7 @@ target_include_directories(
 )
 
 target_link_libraries(
-        2c
+        2c PUBLIC
 
         glfw
         glad

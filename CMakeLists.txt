@@ -13,14 +13,6 @@ option(TWOC_BUILD_SHARED "build the shared library" ON)
 option(TWOC_BUILD_DEMO "build the demo" ON)
 # ==================================
 
-# ============ library =============
-add_subdirectory(2c)
-
-if (TWOC_BUILD_DEMO)
-    add_subdirectory(demo)
-endif ()
-# ==================================
-
 # ========== dependencies ==========
 set(GLFW_BUILD_DOCS OFF)
 set(GLFW_BUILD_EXAMPLES OFF)
@@ -31,3 +23,11 @@ add_subdirectory(deps/glfw)
 add_subdirectory(deps/glad)
 # ==================================
 
+
+# ============ library =============
+add_subdirectory(2c)
+
+if (TWOC_BUILD_DEMO)
+    add_subdirectory(demo)
+endif ()
+# ==================================

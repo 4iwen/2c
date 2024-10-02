@@ -1,14 +1,23 @@
 #ifndef TWOC_ASSERT_H
 #define TWOC_ASSERT_H
 
-#if defined(TWOC_DEBUG)
-#include <stdio.h>
-#include <stdlib.h>
+#include "platform.h"
 
-#define TWOC_ASSERT(condition, message) \
+#if defined(TWOC_DEBUG)
+#if defined(TWOC_PLATFORM_WINDOWS)
+#define TWOC_DEBUG_BREAK() __debugbreak()
+#elif defined(TWOC_PLATFORM_MACOS) || defined(TWOC_PLATFORM_LINUX)
+#define TWOC_DEBUG_BREAK() __builtin_trap()
+#else
+#error "debug break not implemented for this platform"
+#endif
+
+#include <stdio.h>
+
+#define TWOC_ASSERT(condition, message, ...) \
     if (!(condition)) { \
-        fprintf(stderr, "assertion failed: %s\n", message); \
-        exit(1); \
+        fprintf(stderr, "Assertion failed: " message "\n", ##__VA_ARGS__); \
+        TWOC_DEBUG_BREAK(); \
     }
 #else
 #define TWOC_ASSERT(condition, message)
