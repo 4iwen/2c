@@ -1,7 +1,7 @@
 #include "pch.h"
 
-#include "index_buffer.h"
-#include "misc.h"
+#include "renderer/index_buffer.h"
+#include "renderer/misc.h"
 
 #include <glad/gl.h>
 

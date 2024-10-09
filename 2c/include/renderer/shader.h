@@ -9,8 +9,6 @@ typedef struct {
 
 TWOC_API twoc_shader_t *twoc_create_shader(const char *vertex_shader_source, const char *fragment_shader_source);
 
-TWOC_API twoc_shader_t *twoc_create_shader_from_file(const char *vertex_shader_path, const char *fragment_shader_path);
-
 TWOC_API void twoc_destroy_shader(twoc_shader_t *shader);
 
 TWOC_API void twoc_bind_shader(twoc_shader_t *shader);

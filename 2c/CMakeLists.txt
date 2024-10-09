@@ -3,10 +3,13 @@ set(
         SOURCE_FILES
 
         src/core/core.c
-        src/core/thread.c
-        src/core/mutex.c
+        src/core/thread/thread.c
+        src/core/thread/mutex.c
         src/window/window.c
-        src/timer/timer.c
+        src/core/time/timer.c
+        src/core/queue/queue.c
+        src/event/event.c
+        src/event/event_queue.c
         src/renderer/renderer.c
         src/renderer/vertex_array.c
         src/renderer/vertex_buffer.c
@@ -69,7 +72,8 @@ target_precompile_headers(
 target_include_directories(
         2c PUBLIC
 
-        src
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/deps/glfw/include
         ${CMAKE_SOURCE_DIR}/deps/glad/include
 
@@ -82,4 +86,3 @@ target_link_libraries(
         glad
 )
 # ==================================
-

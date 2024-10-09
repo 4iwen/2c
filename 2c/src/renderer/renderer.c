@@ -1,12 +1,12 @@
 #include "pch.h"
 
-#include "renderer.h"
+#include "renderer/renderer.h"
 
-#include "vertex_array.h"
-#include "vertex_buffer.h"
-#include "index_buffer.h"
-#include "shader.h"
-#include "misc.h"
+#include "renderer/vertex_array.h"
+#include "renderer/vertex_buffer.h"
+#include "renderer/index_buffer.h"
+#include "renderer/shader.h"
+#include "renderer/misc.h"
 
 #define GLFW_INCLUDE_NONE
 #include <glad/gl.h>
@@ -17,10 +17,8 @@ static twoc_vertex_buffer_t *quad_vertex_buffer = NULL;
 static twoc_index_buffer_t *quad_index_buffer = NULL;
 static twoc_shader_t *quad_shader = NULL;
 
-bool twoc_create_renderer() {
-    if (!gladLoadGL(glfwGetProcAddress)) {
-        return false;
-    }
+void twoc_create_renderer() {
+    TWOC_ASSERT(gladLoadGL(glfwGetProcAddress), "failed to initialize glad");
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -36,10 +34,10 @@ bool twoc_create_renderer() {
     glEnable(GL_SCISSOR_TEST);
 
     float quad_vertices[] = {
-        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f,
-        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f,
-        0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f,
-        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f,
+        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+        0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
+        -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
     };
 
     unsigned int quad_indices[] = {
@@ -71,7 +69,6 @@ bool twoc_create_renderer() {
             "   frag_color = vec4(color, 1.0f);\n"
             "}\n";
 
-
     quad_shader = twoc_create_shader(quad_vertex_shader_source, quad_fragment_shader_source);
 
     quad_vertex_array = twoc_create_vertex_array();
@@ -85,8 +82,13 @@ bool twoc_create_renderer() {
 
     twoc_add_vertex_buffer_to_vertex_array(quad_vertex_array, quad_vertex_buffer);
     twoc_add_index_buffer_to_vertex_array(quad_vertex_array, quad_index_buffer);
+}
 
-    return true;
+void twoc_destroy_renderer() {
+    twoc_destroy_shader(quad_shader);
+    twoc_destroy_vertex_array(quad_vertex_array);
+    twoc_destroy_vertex_buffer(quad_vertex_buffer);
+    twoc_destroy_index_buffer(quad_index_buffer);
 }
 
 void twoc_clear_background(twoc_color_t color) {

@@ -1,8 +1,9 @@
 #include "pch.h"
 
-#include "shader.h"
+#include "renderer/shader.h"
 
-#include <core/assert.h>
+#include "core/assert.h"
+
 #include <glad/gl.h>
 
 typedef enum {
@@ -60,16 +61,6 @@ twoc_shader_t *twoc_create_shader(const char *vertex_shader_source, const char *
     compile_shaders(&shader->id, vertex_shader_source, fragment_shader_source);
 
     return shader;
-}
-
-twoc_shader_t *twoc_create_shader_from_file(const char *vertex_shader_path, const char *fragment_shader_path) {
-    TWOC_ASSERT(false, "loading shaders from file is not implemented");
-
-    // load sources from file
-
-    // twoc_shader_t *shader = twoc_create_shader();
-
-    // return shader;
 }
 
 void twoc_destroy_shader(twoc_shader_t *shader) {

@@ -8,7 +8,6 @@
 #include <math.h>
 #include <stdbool.h>
 #include <time.h>
-#include <unistd.h>
 
 #include "core/platform.h"
 

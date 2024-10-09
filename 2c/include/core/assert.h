@@ -16,7 +16,7 @@
 
 #define TWOC_ASSERT(condition, message, ...) { \
     if (!(condition)) { \
-        fprintf(stderr, "[%s:%d] Assertion failed: " message "\n",  __FILE__, __LINE__, ##__VA_ARGS__); \
+        fprintf(stderr, "[%s:%d] assertion failed: " message "\n", __FILE__, __LINE__, ##__VA_ARGS__); \
         TWOC_DEBUG_BREAK(); \
     } \
 }

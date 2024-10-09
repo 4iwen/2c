@@ -1,8 +1,8 @@
 #include "pch.h"
 
-#include "thread.h"
+#include "core/thread/thread.h"
 
-#include "platform.h"
+#include "core/platform.h"
 
 #if defined(TWOC_PLATFORM_WINDOWS)
 bool twoc_create_thread(thread_t *thread, thread_func_t func, void *arg) {

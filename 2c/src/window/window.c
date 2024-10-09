@@ -1,20 +1,21 @@
 #include "pch.h"
 
-#include "window.h"
+#include "window/window.h"
 
 #include "core/core.h"
 #include "core/assert.h"
-#include "timer/timer.h"
+#include "core/time/timer.h"
+#include "event/event.h"
+#include "renderer/renderer.h"
 
 #include <GLFW/glfw3.h>
-#include <renderer/renderer.h>
 
 static GLFWwindow *instance = NULL;
-static twoc_timer_t *frame_timer;
+static twoc_timer_t *frame_timer = NULL;
 static double target_frame_time = 0.0f;
 
 static void glfw_error_callback(int error, const char *description) {
-    fprintf(stderr, "GLFW error %i: %s\n", error, description);
+    TWOC_ASSERT(false, "GLFW error %i: %s", error, description);
 }
 
 void twoc_create_window(int width, int height, const char *title) {
@@ -39,11 +40,13 @@ void twoc_create_window(int width, int height, const char *title) {
 
     glfwMakeContextCurrent(instance);
 
-    if (!twoc_create_renderer()) {
-        glfwDestroyWindow(instance);
-        glfwTerminate();
-        TWOC_ASSERT(false, "failed to initialize glad");
-    }
+    twoc_create_renderer();
+
+    glfwSetKeyCallback(instance, key_callback);
+    glfwSetCursorPosCallback(instance, mouse_position_callback);
+    glfwSetMouseButtonCallback(instance, mouse_button_callback);
+    glfwSetWindowSizeCallback(instance, window_resize_callback);
+    glfwSetWindowCloseCallback(instance, window_close_callback);
 
     frame_timer = twoc_create_timer();
     twoc_start_timer(frame_timer);
@@ -53,6 +56,8 @@ void twoc_destroy_window() {
     TWOC_ASSERT(instance != NULL, "trying to destroy window that does not exist");
 
     twoc_destroy_timer(frame_timer);
+
+    twoc_destroy_renderer();
 
     glfwDestroyWindow(instance);
     instance = NULL;

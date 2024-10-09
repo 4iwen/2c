@@ -2,12 +2,13 @@
 #define TWOC_TIMER_H
 
 #include "core/api.h"
+#include "core/thread/mutex.h"
 
 typedef struct {
     bool is_running;
     double start_time;
     double elapsed_time;
-    pthread_mutex_t mutex;
+    mutex_t mutex;
 } twoc_timer_t;
 
 TWOC_API twoc_timer_t *twoc_create_timer();

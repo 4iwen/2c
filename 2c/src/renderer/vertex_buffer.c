@@ -1,11 +1,10 @@
 #include "pch.h"
 
-#include "vertex_buffer.h"
+#include "renderer/vertex_buffer.h"
+#include "renderer/misc.h"
 
 #include <core/assert.h>
 #include <glad/gl.h>
-
-#include "misc.h"
 
 unsigned int get_shader_data_type_size(twoc_vertex_buffer_element_data_type_t data_type) {
     switch (data_type) {
@@ -70,41 +69,6 @@ void twoc_push_vertex_buffer_element(
     const char *name,
     bool normalized
 ) {
-    /*twoc_vertex_buffer_element_t *element = realloc(
-        layout->elements,
-        sizeof(twoc_vertex_buffer_element_t) * (layout->element_count + 1)
-    );
-
-    static unsigned int offset = 0;
-
-    element[layout->element_count].offset = offset;
-    offset += element[layout->element_count].size;
-    layout->stride += element[layout->element_count].size;
-
-    element[layout->element_count].offset = layout->element_count;
-    element[layout->element_count].size = 0;
-    element[layout->element_count].data_type = element_type;
-    element[layout->element_count].normalized = false;
-    element[layout->element_count].name = name;
-
-    layout->elements = element;
-    layout->element_count++;
-
-    BufferLayout(std::initializer_list<BufferElement> elements): m_elements(elements) {
-        calculateOffsetsAndStride();
-    }
-
-    void calculateOffsetsAndStride() {
-        uint32_t offset = 0;
-        m_stride = 0;
-        for (auto &element: m_elements) {
-            element.offset = offset;
-            offset += element.size;
-            m_stride += element.size;
-        }
-    }
-    */
-
     twoc_vertex_buffer_element_t *first_element = realloc(
         layout->elements,
         sizeof(twoc_vertex_buffer_element_t) * (layout->element_count + 1)

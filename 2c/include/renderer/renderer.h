@@ -24,7 +24,7 @@ typedef struct {
 #define TWOC_RGB_255(r, g, b) (twoc_color_t) {r / 255.0f, g / 255.0f, b / 255.0f, 1.0f}
 #define TWOC_RGBA_255(r, g, b, a) (twoc_color_t) {r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f}
 
-TWOC_API bool twoc_create_renderer();
+TWOC_API void twoc_create_renderer();
 
 TWOC_API void twoc_destroy_renderer();
 

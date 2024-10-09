@@ -1,8 +1,8 @@
 #include "pch.h"
 
-#include "mutex.h"
+#include "core/thread/mutex.h"
 
-#include "platform.h"
+#include "core/platform.h"
 
 #if defined(TWOC_PLATFORM_WINDOWS)
 bool twoc_create_mutex(mutex_t *mutex) {

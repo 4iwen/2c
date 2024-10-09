@@ -1,8 +1,6 @@
 #include "pch.h"
 
-#include "core.h"
-
-#include "assert.h"
+#include "core/assert.h"
 
 void twoc_sleep(double seconds) {
     if (seconds > 0.0) {

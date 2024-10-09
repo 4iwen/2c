@@ -1,6 +1,6 @@
-#include <2c/2c.h>
+#include <2c.h>
 
-int main() {
+int main(void) {
     twoc_create_window(800, 600, "2c demo");
 
     twoc_set_max_fps(144);

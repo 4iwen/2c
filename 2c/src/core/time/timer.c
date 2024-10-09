@@ -1,10 +1,9 @@
 #include "pch.h"
 
-#include "timer.h"
+#include "core/time/timer.h"
 
 #include "core/assert.h"
-#include "core/thread.h"
-#include "core/mutex.h"
+#include "core/thread/mutex.h"
 
 #if defined(TWOC_PLATFORM_WINDOWS)
 static LARGE_INTEGER frequency;

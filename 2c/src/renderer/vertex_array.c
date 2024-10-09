@@ -1,7 +1,7 @@
 #include "pch.h"
 
-#include "vertex_array.h"
-#include "misc.h"
+#include "renderer/vertex_array.h"
+#include "renderer/misc.h"
 
 #include <core/assert.h>
 #include <glad/gl.h>
